@@ -22,10 +22,10 @@ fn_fetch_default_config(){
 	echo ""
 	echo "Downloading ${gamename} Configs"
 	echo "================================="
-	echo "default configs from https://github.com/GameServerManagers/FliesWithWind"
+	echo "default configs from https://github.com/FliesWithWind/Game-Server-Configs"
 	sleep 1
 	mkdir -p "${lgsmdir}/config-default/config-game"
-	githuburl="https://raw.githubusercontent.com/GameServerManagers/FliesWithWind/master"
+	githuburl="https://raw.githubusercontent.com/FliesWithWind/Game-Server-Configs/master"
 	for config in "${array_configs[@]}"; do
 		fn_fetch_file "${githuburl}/${gamedirname}/${config}" "${lgsmdir}/config-default/config-game" "${config}" "nochmodx" "norun" "noforce" "nomd5"
 	done
