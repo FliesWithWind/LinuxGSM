@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM info_glibc.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Stores details on servers Glibc requirements.
 
 local function_selfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
@@ -12,6 +12,12 @@ if [ "${gamename}" == "ARK: Survival Evolved" ]; then
 elif [ "${gamename}" == "Ballistic Overkill" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
+elif [ "${gamename}" == "Battalion 1944" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
+elif [ "${gamename}" == "Base Defense" ]; then
+	glibcrequired="2.14"
+	glibcfix="no"
 elif [ "${gamename}" == "Black Mesa: Deathmatch" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
@@ -20,6 +26,7 @@ elif [ "${gamename}" == "Blade Symphony" ]; then
 	glibcfix="yes"
 elif [ "${gamename}" == "BrainBread 2" ]; then
 	glibcrequired="2.17"
+	glibcfix="no"
 elif [ "${gamename}" == "Call of Duty" ]; then
 	glibcrequired="2.1"
 	glibcfix="no"
@@ -47,11 +54,14 @@ elif [ "${gamename}" == "Day of Infamy" ]; then
 elif [ "${gamename}" == "Double Action: Boogaloo" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
+elif [ "${gamename}" == "Eco" ]; then
+	glibcrequired="NOT REQUIRED"
+	glibcfix="no"
 elif [ "${gamename}" == "Empires Mod" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
 elif [ "${gamename}" == "Factorio" ]; then
-	glibcrequired="2.15"
+	glibcrequired="2.18"
 	glibcfix="yes"
 elif [ "${gamename}" == "Fistful of Frags" ]; then
 	glibcrequired="2.15"
@@ -80,6 +90,9 @@ elif [ "${gamename}" == "Project Cars" ]; then
 elif [ "${gamename}" == "Pirates, Vikings, and Knights II" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
+elif [ "${shortname}" == "pstbs" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
 elif [ "${gamename}" == "Quake 2" ]; then
 	glibcrequired="NOT REQUIRED"
 	glibcfix="no"
@@ -88,6 +101,9 @@ elif [ "${gamename}" == "Quake 3: Arena" ]; then
 	glibcfix="no"
 elif [ "${gamename}" == "Quake Live" ]; then
 	glibcrequired="2.15"
+	glibcfix="no"
+elif [ "${shortname}" == "rw" ]; then
+	glibcrequired="2.14"
 	glibcfix="no"
 elif [ "${gamename}" == "San Andreas Multiplayer" ]; then
 	glibcrequired="2.3"
@@ -176,6 +192,9 @@ elif [ "${engine}" == "refractor" ]; then
 elif [ "${gamename}" == "Wolfenstein: Enemy Territory" ]; then
 	glibcrequired="2.2.4"
 	glibcfix="no"
+elif [ "${gamename}" == "ET: Legacy" ]; then
+	glibcrequired="2.7"
+	glibcfix="no"
 elif [ "${gamename}" == "Multi Theft Auto" ]; then
 	glibcrequired="2.7"
 	glibcfix="no"
@@ -185,4 +204,12 @@ elif [ "${gamename}" == "Zombie Panic! Source" ]; then
 else
 	glibcrequired="UNKNOWN"
 	glibcfix="no"
+fi
+
+# Sets the SteamCMD GLIBC requirement if the game server requirement is less or not required.
+if [ -n "${appid}" ]; then
+	if [ "${glibcrequired}" = "NOT REQUIRED" ]||[ -z "${glibcrequired}" ]||[ "$(printf '%s\n'${glibcrequired}'\n' "2.14" | sort -V | head -n 1)" != "2.14" ]; then
+		glibcrequired="2.14"
+		glibcfix="no"
+	fi
 fi
